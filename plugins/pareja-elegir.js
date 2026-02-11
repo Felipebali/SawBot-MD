@@ -28,6 +28,7 @@ plugin.run = async (m, { client, text, usedPrefix, command, user }) => {
   const pareja = user.couple;
   const parejaData = getUser(pareja);
   const parejaLid = parejaData?.lid;
+  const partnerData = getUser(who?.couple);
 
   if (who?.couple == m.senderJid && user.couple !== whoJid) return client.sendText(m.chat, `La persona ya te pidió ser tu pareja! Responde su petición con:\n\n${usedPrefix}aceptar @${whoLid.split("@")[0]}\n${usedPrefix}rechazar @${whoLid.split("@")[0]}`, m);
   try {
@@ -42,8 +43,9 @@ plugin.run = async (m, { client, text, usedPrefix, command, user }) => {
           const kz = await client.sendText(m.chat, txt.parejaAlready(whoLid), m);
           client.sendMessage(m.chat, { react: { text: "🥰", key: kz.key } });
           return;
+        } else if (who?.couple && partnerData?.couple === whoJid) {
+          return client.sendText(m.chat, `@${whoLid.split("@")[0]} ya tiene pareja, respete 🤨`, m);
         }
-        await client.sendText(m.chat, txt.parejaConfesionPendiente, m);
       }
     } else if (pacar == m.senderJid) {
       updateUser(m.sender, { couple: whoJid });

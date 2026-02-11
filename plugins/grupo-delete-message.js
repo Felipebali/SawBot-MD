@@ -9,6 +9,7 @@ plugin.run = async (m, { client, isAdmin, isOwner }) => {
   if (!m.quoted) return client.sendText(m.chat, txt.delMsgNull, m);
 
   m.quoted.delete();
+  m.delete();
 };
 
 export default plugin;

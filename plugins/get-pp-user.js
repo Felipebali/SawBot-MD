@@ -7,9 +7,9 @@ plugin.onlyAdmin = true;
 plugin.run = async (m, { client, text, usedPrefix, command }) => {
   let who;
   const numberMatches = text.match(/@[0-9\s]+/g);
-  const numberMatchesPlus = text.match(/\+[0-9\s]+/g);
+  const numberMatchesPlus = text.match(/\+\d[\d\s-]*/g);
   if (numberMatchesPlus && numberMatchesPlus.length > 0) {
-    who = numberMatchesPlus[0].replace(/[+\s]/g, "") + "@s.whatsapp.net";
+    who = numberMatchesPlus[0].replace(/[^\d]/g, "") + "@s.whatsapp.net";
   } else if (numberMatches && numberMatches.length > 0) {
     who = numberMatches[0].replace("@", "").replace(/\s+/g, "") + "@lid";
   } else if (m.quoted) {

@@ -8,16 +8,9 @@ plugin.before = async function (m, { client, user }) {
 
   if (inGroup.afk > -1) {
     await client.sendText(m.chat, txt.afkOff(m.sender, inGroup.afkReason, inGroup.afk), null);
-    const newInGroup = {
-      ...user.inGroup,
-      [m.chat]: {
-        ...user.inGroup[m.chat],
-        afk: -1,
-        afkReason: "",
-      },
-    };
-
-    updateUser(m.sender, { inGroup: JSON.stringify(newInGroup) });
+    user.inGroup[m.chat].afk = -1;
+    user.inGroup[m.chat].afkReason = "";
+    updateUser(m.sender, { inGroup: JSON.stringify(user.inGroup) });
   }
 
   if (who && who !== m.sender) {

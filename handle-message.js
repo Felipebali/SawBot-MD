@@ -79,6 +79,8 @@ export async function handleMessage(nMsg) {
     args = m.text.slice(usedPrefix.length).trim().split(/\s+/);
     const command = args.shift().toLowerCase();
     if (!command) return;
+    // ignorar comandos que sean solo puntos
+    if (/^\.+$/.test(command)) return;
     text = args.join(" ");
 
     // Verificar si el comando existe en algún plugin

@@ -5,7 +5,7 @@ plugin.botAdmin = true;
 
 plugin.run = async (m, { client, text, isOwner }) => {
   if (isOwner) return;
-  await client.sendMessage(m.chat, { text: `*@${m.lid.split("@")[0]} ACABA DE EJECUTAR SU SUICIDIO😐*`, mentions: [m.sender] }, { quoted: m });
+  await client.sendMessage(m.chat, { text: `*@${m.sender.split("@")[0]} ACABA DE EJECUTAR SU ELIMINACIÓN😐*`, mentions: [m.sender] }, { quoted: m });
   await delay(1500);
   client.groupParticipantsUpdate(m.chat, [m.sender], "remove");
 };

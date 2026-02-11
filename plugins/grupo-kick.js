@@ -23,8 +23,7 @@ plugin.run = async (m, { client, participants, text, groupMetadata, usedPrefix, 
       m.react("❌");
       client.sendText(m.chat, txt.kickOwner(who), m);
     } else if (who) {
-      //m.react("🫡");
-      await m.quoted.delete();
+      await m.quoted?.delete();
       await delay(300);
       await m.delete();
       await delay(1000);

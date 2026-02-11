@@ -7,7 +7,7 @@ plugin.onlyOwner = true;
 plugin.run = async (m, { client, text, usedPrefix, command, participants }) => {
   // Mostrar todos los usuarios en blacklist
   if (command === "vln") {
-    const entries = getBlacklist();
+    const entries = getBlacklist().reverse();
 
     if (entries.length === 0) return client.sendText(m.chat, "No hay usuarios en lista negra.", m);
 
@@ -34,7 +34,7 @@ plugin.run = async (m, { client, text, usedPrefix, command, participants }) => {
         const razon = entry.reason || "Sin razón";
         const añadidoPor = entry.addedBy ? `+${entry.addedBy.split("@")[0]}` : "Desconocido";
 
-        return `${i + 1}. ${num}\n📝 Razón: ${razon}\n👤 Añadido por: ${añadidoPor}\n📆 Fecha: ${fechaTexto}\n`;
+        return `${i === 2 && entries.length > 2 ? readMore : ""}${entries.length - i}. ${num}\n📝 Razón: ${razon}\n👤 Añadido por: ${añadidoPor}\n📆 Fecha: ${fechaTexto}\n`;
       })
       .join("\n");
 
@@ -44,9 +44,9 @@ plugin.run = async (m, { client, text, usedPrefix, command, participants }) => {
 
   // obtener usuario destinatario y la razón de estar en blacklist
   let who, reason;
-  const phoneMatches = text.match(/\+\d[\d\s]*/g);
+  const phoneMatches = text.match(/\+\d[\d\s-]*/g);
   if (phoneMatches && phoneMatches.length > 0) {
-    who = phoneMatches[0].replace(/\+|\s+/g, "") + "@s.whatsapp.net";
+    who = phoneMatches[0].replace(/[^\d]/g, "") + "@s.whatsapp.net";
     reason = text.replace(phoneMatches[0], "").trim();
   } else {
     who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : null;
@@ -115,3 +115,6 @@ plugin.run = async (m, { client, text, usedPrefix, command, participants }) => {
 };
 
 export default plugin;
+
+const more = String.fromCharCode(8206);
+const readMore = more.repeat(4001);

@@ -24,7 +24,7 @@ globalThis.owners = config.owners || [""];
 globalThis.prefix = [".", "/", "#", "@"];
 
 // Versión del bot
-globalThis.botVersion = "v1.0";
+globalThis.botVersion = "v2.0";
 
 // Baileys
 globalThis.baileys = "@whiskeysockets/baileys";
