@@ -1,5 +1,5 @@
 # Numero del bot sin "+" ni espacios ni guiones. Dejar vacío para vincular con codigo QR.
-numberBot = ""
+numberBot = "59892379658"
 
 # Números de owners del bot sin "+" ni espacios ni guiones
 owners = ["59898719147", ""]
